@@ -1,19 +1,19 @@
 <?php
 
 /**
- * Freespee integration for Laravel 5.1
+ * Database backups for Laravel 5.1
  *
  * @license MIT
- * @package SpotOnLive\Freespee
+ * @package SpotOnLive\DbBackup
  */
 
-namespace SpotOnLive\Freespee\Providers\Services;
+namespace SpotOnLive\DbBackup\Providers\Services;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Foundation\Application;
 use SpotOnLive\DbBackup\Services\BackupService;
 
-class FreespeeServiceProvider extends ServiceProvider
+class BackupServiceProvider extends ServiceProvider
 {
     /**
      * Publish config
