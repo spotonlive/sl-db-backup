@@ -21,7 +21,7 @@ return [
             // File system
             'name' => 'file',
 
-            'adapter' => 'SpotOnLive\DbBackup\Adapters\Backup\File',
+            'adapter' => 'SpotOnLive\DbBackup\Adapters\Backup\FileAdapter',
 
             'config' => [
                 'storage_path' => storage_path('/'),
@@ -32,7 +32,7 @@ return [
         [
             // Amazon
             'name' => 's3',
-            'adapter' => 'SpotOnLive\DbBackup\Adapters\Backup\Amazon',
+            'adapter' => 'SpotOnLive\DbBackup\Adapters\Backup\AmazonAdapter',
 
             'config' => [
                 'storage_path' => storage_path('/'),
