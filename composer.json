@@ -1,0 +1,35 @@
+{
+  "name": "spotonlive/sl-db-backup",
+  "type": "library",
+  "description": "Database backup for Laravel 5.1",
+  "keywords": [
+    "database",
+    "adapter",
+    "backup",
+    "laravel"
+  ],
+  "homepage": "https://github.com/spotonlive/sl-db-backup",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Nikolaj Petersen",
+      "email": "nikolaj.lovenhardt@gmail.com",
+      "homepage": "http://spotonmarketing.dk"
+    }
+  ],
+  "require": {
+    "php": ">=5.4.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0",
+    "laravel/framework": "~5.1",
+    "codeclimate/php-test-reporter": "dev-master",
+    "phpmd/phpmd" : "1.4.*",
+    "squizlabs/php_codesniffer" : "1.5.*"
+  },
+  "autoload": {
+    "psr-4": {
+      "SpotOnLive\\DbBackup\\": "src/SpotOnLive/DbBackup/"
+    }
+  }
+}
