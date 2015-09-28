@@ -1,9 +1,18 @@
 <?php
 
 return [
+    // Dump adapter
+    'dump' => [
+        'adapter' => 'SpotOnLive\DbBackup\Adapters\Dump\MySQLDumpAdapter',
 
+        'config' => [
+            'host' => env('DB_HOST', 'localhost'),
+            'username' => env('DB_USERNAME'),
+            'password' => env('DB_PASSWORD'),
+        ],
+    ],
 
-    // Backup services
+    // Backup adapters
     'adapter_chain' => [
         /*
          * Examples
@@ -15,7 +24,7 @@ return [
             'adapter' => 'SpotOnLive\DbBackup\Adapters\Backup\File',
 
             'config' => [
-                'storage_path' => './storage/',
+                'storage_path' => storage_path('/'),
                 'prefix' => 'backup_',
                 'file_type' => 'sql',
              ],
@@ -26,7 +35,7 @@ return [
             'adapter' => 'SpotOnLive\DbBackup\Adapters\Backup\Amazon',
 
             'config' => [
-                'storage_path' => './backups/',
+                'storage_path' => storage_path('/'),
                 'prefix' => 'backup_',
                 'file_type' => 'sql',
 

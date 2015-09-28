@@ -4,13 +4,17 @@ namespace SpotOnLive\DbBackup\Services;
 
 use SpotOnLive\DbBackup\Adapters\Backup\BackupAdapterInterface;
 use SpotOnLive\DbBackup\Adapters\Backup\ChainAdapter;
+use SpotOnLive\DbBackup\Adapters\Dump\DumpAdapterInterface;
 use SpotOnLive\DbBackup\Exceptions\RuntimeException;
 use SpotOnLive\DbBackup\Options\BackupServiceOptions;
 
 class BackupService implements BackupServiceInterface
 {
     /** @var BackupAdapterInterface */
-    protected $adapter;
+    protected $backupAdapter;
+
+    /** @var DumpAdapterInterface */
+    protected $dumpAdapter;
 
     /** @var BackupServiceOptions */
     protected $options;
@@ -18,16 +22,27 @@ class BackupService implements BackupServiceInterface
     public function __construct(array $options = [])
     {
         $this->options = new BackupServiceOptions($options);
+        $this->attachDumpAdapter();
         $this->attachAdapters();
     }
 
     /**
-     * Back up
+     * Backup
+     *
+     * @param null $database
+     * @return bool
      */
-    public function backup()
+    public function backup($database = null)
     {
-        $file = 'test content';
-        $this->adapter->backup($file);
+        if (is_null($database)) {
+            $database = env('DB_DATABASE');
+        }
+
+        $content = $this->dumpAdapter->dump($database);
+
+        $this->backupAdapter->backup($content);
+
+        return true;
     }
 
     /**
@@ -61,9 +76,35 @@ class BackupService implements BackupServiceInterface
             $chain->add($adapter);
         }
 
-        $this->adapter = $chain;
+        $this->backupAdapter = $chain;
 
         return true;
+    }
+
+    /**
+     * Attach dump adapter
+     *
+     * @throws RuntimeException
+     */
+    protected function attachDumpAdapter()
+    {
+        $options = $this->options->get('dump');
+
+        if (!isset($options['adapter']) || is_null($options['adapter']) || !class_exists($options['adapter'])) {
+            throw new RuntimeException(
+                _('Please provide an adapter class')
+            );
+        }
+
+        $adapter = new $options['adapter']($options['config']);
+
+        if (!$adapter instanceof DumpAdapterInterface) {
+            throw new RuntimeException(
+                _('Please provide a valid adapter class')
+            );
+        }
+
+        $this->dumpAdapter = $adapter;
     }
 
     /**
@@ -73,6 +114,6 @@ class BackupService implements BackupServiceInterface
      */
     public function setAdapter($adapter)
     {
-        $this->adapter = $adapter;
+        $this->backupAdapter = $adapter;
     }
 }

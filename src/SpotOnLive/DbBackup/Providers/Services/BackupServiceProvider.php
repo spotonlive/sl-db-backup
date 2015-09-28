@@ -47,7 +47,7 @@ class BackupServiceProvider extends ServiceProvider
     private function mergeConfig()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/../../../../config/backup.php',
+            __DIR__ . '/../../../../config/config.php',
             'backup'
         );
     }
