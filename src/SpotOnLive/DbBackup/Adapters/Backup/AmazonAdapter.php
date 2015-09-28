@@ -26,5 +26,18 @@ class AmazonAdapter implements BackupAdapterInterface
      */
     public function backup($data = null)
     {
+        $filename = $this->getFilename();
+        $configuration = $this->options->get('credentials');
+    }
+
+    /**
+     * Get new filename
+     *
+     * @return string
+     */
+    public function getFilename()
+    {
+        $options = $this->options;
+        return $options->get('prefix') . time() . '.' . $options->get('file_type');
     }
 }
