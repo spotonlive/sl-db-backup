@@ -65,7 +65,7 @@ namespace SpotOnLive\DbBackupTest\Adapters\Backup {
             $options = $this->getMock('SpotOnLive\DbBackup\Options\FileAdapterOptions');
             $this->options = $options;
 
-            $adapter = new \SpotOnLive\DbBackup\adapters\Backup\FileAdapter([]);
+            $adapter = new \SpotOnLive\DbBackup\Adapters\Backup\FileAdapter([]);
             $this->adapter = $adapter;
 
             $adapter->setOptions($options);

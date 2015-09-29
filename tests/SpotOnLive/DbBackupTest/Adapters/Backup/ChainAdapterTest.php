@@ -22,7 +22,7 @@ class ChainAdapterTest extends PHPUnit_Framework_TestCase
         $this->adapters = $adapters;
 
         /** @var \SpotOnLive\DbBackup\adapters\Backup\ChainAdapter $adapter */
-        $adapter = new \SpotOnLive\DbBackup\adapters\Backup\ChainAdapter($adapters);
+        $adapter = new \SpotOnLive\DbBackup\Adapters\Backup\ChainAdapter($adapters);
         $this->adapter = $adapter;
     }
 

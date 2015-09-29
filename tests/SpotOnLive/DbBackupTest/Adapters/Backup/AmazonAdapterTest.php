@@ -18,7 +18,7 @@ class AmazonAdapterTest extends PHPUnit_Framework_TestCase
         $options = $this->getMock('SpotOnLive\DbBackup\Options\AmazonAdapterOptions');
         $this->options = $options;
 
-        $adapter = new \SpotOnLive\DbBackup\adapters\Backup\AmazonAdapter([]);
+        $adapter = new \SpotOnLive\DbBackup\Adapters\Backup\AmazonAdapter([]);
         $this->adapter = $adapter;
 
         $adapter->setOptions($options);
