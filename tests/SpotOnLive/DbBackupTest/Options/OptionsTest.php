@@ -1,6 +1,6 @@
 <?php
 
-namespace SpotOnLiveTest\DbBackup\Options;
+namespace SpotOnLive\DbBackupTest\Options;
 
 use PHPUnit_Framework_TestCase;
 

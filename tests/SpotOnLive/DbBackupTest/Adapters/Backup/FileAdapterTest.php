@@ -46,7 +46,7 @@ namespace SpotOnLive\DbBackup\Adapters\Backup {
     }
 }
 
-namespace SpotOnLiveTest\DbBackup\Adapters\Backup {
+namespace SpotOnLive\DbBackupTest\Adapters\Backup {
 
     use PHPUnit_Framework_TestCase;
 // @codingStandardsIgnoreEnd

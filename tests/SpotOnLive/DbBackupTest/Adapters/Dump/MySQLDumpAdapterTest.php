@@ -19,7 +19,7 @@ namespace SpotOnLive\DbBackup\Adapters\Dump {
     }
 }
 
-namespace SpotOnLiveTest\DbBackup\Adapters\Dump {
+namespace SpotOnLive\DbBackupTest\Adapters\Dump {
 
     use PHPUnit_Framework_TestCase;
     // @codingStandardsIgnoreEnd
