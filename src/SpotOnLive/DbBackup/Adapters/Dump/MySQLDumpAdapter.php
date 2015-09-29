@@ -48,4 +48,20 @@ class MySQLDumpAdapter implements DumpAdapterInterface
 
         return $content;
     }
+
+    /**
+     * @return DumpOptions
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param DumpOptions $options
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
+    }
 }
