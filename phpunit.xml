@@ -12,6 +12,7 @@
         >
     <php>
         <env name="APP_ENV" value="testing"/>
+        <env name="DB_DATABASE" value="demo-db"/>
     </php>
 
     <testsuites>

@@ -84,6 +84,7 @@ class BackupService implements BackupServiceInterface
     /**
      * Attach dump adapter
      *
+     * @return bool
      * @throws RuntimeException
      */
     protected function attachDumpAdapter()
@@ -105,6 +106,8 @@ class BackupService implements BackupServiceInterface
         }
 
         $this->dumpAdapter = $adapter;
+
+        return true;
     }
 
     /**
@@ -115,5 +118,45 @@ class BackupService implements BackupServiceInterface
     public function setAdapter($adapter)
     {
         $this->backupAdapter = $adapter;
+    }
+
+    /**
+     * @return DumpAdapterInterface
+     */
+    public function getDumpAdapter()
+    {
+        return $this->dumpAdapter;
+    }
+
+    /**
+     * @param DumpAdapterInterface $dumpAdapter
+     */
+    public function setDumpAdapter($dumpAdapter)
+    {
+        $this->dumpAdapter = $dumpAdapter;
+    }
+
+    /**
+     * @return BackupServiceOptions
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param BackupServiceOptions $options
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
+    }
+
+    /**
+     * @return BackupAdapterInterface
+     */
+    public function getBackupAdapter()
+    {
+        return $this->backupAdapter;
     }
 }
