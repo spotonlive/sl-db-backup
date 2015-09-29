@@ -26,7 +26,8 @@ class MySQLDumpAdapter implements DumpAdapterInterface
         $dumper = new Mysqldump\Mysqldump(
             'mysql:host=' . $host . ';dbname=' . $database,
             $username,
-            $password);
+            $password
+        );
 
         $temporaryFile = tempnam("/tmp", uniqid());
 

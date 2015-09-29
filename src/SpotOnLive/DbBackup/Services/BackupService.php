@@ -58,7 +58,7 @@ class BackupService implements BackupServiceInterface
 
         $chain = new ChainAdapter();
 
-        foreach($adapterChain as $adapterConfig) {
+        foreach ($adapterChain as $adapterConfig) {
             if (!isset($adapterConfig['adapter']) || !class_exists($adapterConfig['adapter'])) {
                 throw new RuntimeException(
                     _('Please provide an adapter class')

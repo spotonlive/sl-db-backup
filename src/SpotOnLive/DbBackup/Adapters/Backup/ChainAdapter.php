@@ -23,7 +23,7 @@ class ChainAdapter implements BackupAdapterInterface
      */
     public function backup($data = null)
     {
-        foreach($this->adapters as $adapter) {
+        foreach ($this->adapters as $adapter) {
             $adapter->backup($data);
         }
 
