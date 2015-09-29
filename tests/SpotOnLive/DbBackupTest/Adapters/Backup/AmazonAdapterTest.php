@@ -46,6 +46,20 @@ class AmazonAdapterTest extends PHPUnit_Framework_TestCase
         $this->assertSame($fileType, $resultArray[2]);
     }
 
+    public function testGetPath()
+    {
+        $storagePath = 'testStoragePath';
+
+        $this->options->expects($this->at(0))
+            ->method('get')
+            ->with('storage_path')
+            ->willReturn($storagePath);
+
+        $result = $this->adapter->getPath();
+
+        $this->assertSame($storagePath, $result);
+    }
+
     public function testOptions()
     {
         /** @var \SpotOnLive\DbBackup\Options\AmazonAdapterOptions $options */
