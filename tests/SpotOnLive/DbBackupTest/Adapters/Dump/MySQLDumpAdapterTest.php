@@ -39,7 +39,7 @@ namespace SpotOnLive\DbBackupTest\Adapters\Dump {
             $this->options = $options;
 
             /** @var \SpotOnLive\DbBackup\adapters\Dump\MySQLDumpAdapter $adapter */
-            $adapter = new \SpotOnLive\DbBackup\adapters\Dump\MySQLDumpAdapter([]);
+            $adapter = new \SpotOnLive\DbBackup\Adapters\Dump\MySQLDumpAdapter([]);
             $this->adapter = $adapter;
 
             $adapter->setOptions($options);
