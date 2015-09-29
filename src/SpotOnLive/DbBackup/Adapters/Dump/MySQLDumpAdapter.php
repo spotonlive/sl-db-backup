@@ -15,6 +15,13 @@ class MySQLDumpAdapter implements DumpAdapterInterface
         $this->options = new DumpOptions($config);
     }
 
+    /**
+     * Dump database SQL
+     *
+     * @param string $database
+     * @return string
+     * @throws \Exception
+     */
     public function dump($database)
     {
         $options = $this->options;
