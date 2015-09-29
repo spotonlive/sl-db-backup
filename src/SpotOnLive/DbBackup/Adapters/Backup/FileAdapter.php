@@ -5,6 +5,7 @@ namespace SpotOnLive\DbBackup\Adapters\Backup;
 use SpotOnLive\DbBackup\Exceptions\PermissionException;
 use SpotOnLive\DbBackup\Exceptions\RuntimeException;
 use SpotOnLive\DbBackup\Options\FileAdapterOptions;
+use DateTime;
 
 class FileAdapter implements BackupAdapterInterface
 {
@@ -88,5 +89,21 @@ class FileAdapter implements BackupAdapterInterface
         }
 
         return $storagePath;
+    }
+
+    /**
+     * @return FileAdapterOptions
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param FileAdapterOptions $options
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
     }
 }
