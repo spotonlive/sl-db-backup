@@ -75,5 +75,15 @@ namespace SpotOnLive\DbBackupTest\Adapters\Dump {
 
             $this->adapter->dump($database);
         }
+
+        public function testOptions()
+        {
+            /** @var \SpotOnLive\DbBackup\Options\DumpOptions $options */
+            $options = $this->getMock('SpotOnLive\DbBackup\Options\DumpOptions');
+            $this->adapter->setOptions($options);
+
+            $result = $this->adapter->getOptions();
+            $this->assertSame($options, $result);
+        }
     }
 }
