@@ -41,4 +41,20 @@ class ChainAdapter implements BackupAdapterInterface
         $this->adapters[] = $adapter;
         return $this;
     }
+
+    /**
+     * @return array|BackupAdapterInterface[]
+     */
+    public function getAdapters()
+    {
+        return $this->adapters;
+    }
+
+    /**
+     * @param array|BackupAdapterInterface[] $adapters
+     */
+    public function setAdapters($adapters)
+    {
+        $this->adapters = $adapters;
+    }
 }

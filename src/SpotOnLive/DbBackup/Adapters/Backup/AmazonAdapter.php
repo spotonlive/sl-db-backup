@@ -85,4 +85,20 @@ class AmazonAdapter implements BackupAdapterInterface
         $options = $this->options;
         return $options->get('storage_path');
     }
+
+    /**
+     * @return AmazonAdapterOptions
+     */
+    public function getOptions()
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param AmazonAdapterOptions $options
+     */
+    public function setOptions($options)
+    {
+        $this->options = $options;
+    }
 }
