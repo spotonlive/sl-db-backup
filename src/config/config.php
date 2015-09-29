@@ -14,6 +14,24 @@ return [
 
     // Backup adapters
     'adapter_chain' => [
+        [
+            // Amazon
+            'name' => 's3',
+            'adapter' => 'SpotOnLive\DbBackup\Adapters\Backup\AmazonAdapter',
+
+            'config' => [
+                'storage_path' => storage_path('/'),
+                'prefix' => 'backup_',
+                'file_type' => 'sql',
+
+                'credentials' => [
+                    'key'    => 'AKIAJEF6VC6JG45RS2LA',
+                    'secret' => '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',
+                    'region' => 'Frankfurt',
+                    'bucket' => 'spotonlive-backup',
+                ],
+            ],
+        ],
         /*
          * Examples
          *
