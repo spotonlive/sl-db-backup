@@ -2,9 +2,13 @@
 
 namespace SpotOnLive\DbBackup\Adapters\Backup;
 
+use DateTime;
 use SpotOnLive\DbBackup\Exceptions\PermissionException;
 use SpotOnLive\DbBackup\Exceptions\RuntimeException;
 use SpotOnLive\DbBackup\Options\AmazonAdapterOptions;
+
+use Aws\S3\S3Client;
+use League\Flysystem\AwsS3v3\AwsS3Adapter;
 
 class AmazonAdapter implements BackupAdapterInterface
 {
@@ -28,6 +32,25 @@ class AmazonAdapter implements BackupAdapterInterface
     {
         $filename = $this->getFilename();
         $configuration = $this->options->get('credentials');
+
+        $client = new S3Client([
+            'credentials' => [
+                'key'    => $configuration['key'],
+                'secret' => $configuration['secret'],
+            ],
+            'region' => $configuration['region'],
+            'version' => 'latest',
+        ]);
+
+        $adapter = new AwsS3Adapter($client, $configuration['bucket']);
+
+        $config = new \League\Flysystem\Config();
+
+        if (!$adapter->write($this->getPath() . $filename, $data, $config)) {
+            throw new RunTimeException('Please check your configuration for Amazon s3');
+        }
+
+        return true;
     }
 
     /**
@@ -38,6 +61,28 @@ class AmazonAdapter implements BackupAdapterInterface
     public function getFilename()
     {
         $options = $this->options;
-        return $options->get('prefix') . time() . '.' . $options->get('file_type');
+        return $options->get('prefix') . uniqid($this->getDate()) . '.' . $options->get('file_type');
+    }
+
+    /**
+     * Get datetime stamp
+     *
+     * @return string
+     */
+    public function getDate()
+    {
+        $dateTime = new DateTime();
+        return $dateTime->format('Ymdhis');
+    }
+
+    /**
+     * Get storage path
+     *
+     * @return string
+     */
+    public function getPath()
+    {
+        $options = $this->options;
+        return $options->get('storage_path');
     }
 }

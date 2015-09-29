@@ -53,7 +53,18 @@ class FileAdapter implements BackupAdapterInterface
     public function getFilename()
     {
         $options = $this->options;
-        return $options->get('prefix') . time() . '.' . $options->get('file_type');
+        return $options->get('prefix') . uniqid($this->getDate()) . '.' . $options->get('file_type');
+    }
+
+    /**
+     * Get datetime stamp
+     *
+     * @return string
+     */
+    public function getDate()
+    {
+        $dateTime = new DateTime();
+        return $dateTime->format('Ymdhis');
     }
 
     /**

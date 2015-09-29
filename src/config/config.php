@@ -14,30 +14,11 @@ return [
 
     // Backup adapters
     'adapter_chain' => [
-        [
-            // Amazon
-            'name' => 's3',
-            'adapter' => 'SpotOnLive\DbBackup\Adapters\Backup\AmazonAdapter',
-
-            'config' => [
-                'storage_path' => storage_path('/'),
-                'prefix' => 'backup_',
-                'file_type' => 'sql',
-
-                'credentials' => [
-                    'key'    => 'AKIAJEF6VC6JG45RS2LA',
-                    'secret' => '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',
-                    'region' => 'Frankfurt',
-                    'bucket' => 'spotonlive-backup',
-                ],
-            ],
-        ],
         /*
          * Examples
          *
         [
             // File system
-            'name' => 'file',
 
             'adapter' => 'SpotOnLive\DbBackup\Adapters\Backup\FileAdapter',
 
@@ -49,19 +30,20 @@ return [
         ],
         [
             // Amazon
-            'name' => 's3',
+
             'adapter' => 'SpotOnLive\DbBackup\Adapters\Backup\AmazonAdapter',
 
             'config' => [
-                'storage_path' => storage_path('/'),
+                // Path to directory in AWS S3
+                'storage_path' => '',
                 'prefix' => 'backup_',
                 'file_type' => 'sql',
 
                 'credentials' => [
-                   'key'    => 'your-key',
-                   'secret' => 'your-secret',
-                   'region' => 'your-region',
-                   'bucket' => 'your-bucket',
+                    'key'    => env('AWS_KEY'),
+                    'secret' => env('AWS_SECRET'),
+                    'region' => env('AWS_REGION'),
+                    'bucket' => env('AWS_BUCKET'),
                 ],
             ],
         ],
