@@ -26,6 +26,7 @@
             <directory>./src</directory>
             <exclude>
                 <directory>./src/config</directory>
+                <directory>./src/SpotOnLive\DbBackup\Providers</directory>
                 <directory>./tests</directory>
                 <directory>./vendor</directory>
             </exclude>
