@@ -44,7 +44,9 @@ class AmazonAdapter implements BackupAdapterInterface
 
         $adapter = new AwsS3Adapter($client, $configuration['bucket']);
 
-        $config = new \League\Flysystem\Config();
+        $config = new \League\Flysystem\Config([
+            'mimetype' => 'application/octet-stream',
+        ]);
 
         if (!$adapter->write($this->getPath() . $filename, $data, $config)) {
             throw new RunTimeException('Please check your configuration for Amazon s3');
