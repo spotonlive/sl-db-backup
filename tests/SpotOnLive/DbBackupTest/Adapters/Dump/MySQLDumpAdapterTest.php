@@ -31,8 +31,6 @@ namespace SpotOnLive\DbBackup\Adapters\Dump {
 
 namespace SpotOnLive\DbBackupTest\Adapters\Dump {
 
-    require_once('StreamWrapper.php');
-
     use PHPUnit_Framework_TestCase;
     // @codingStandardsIgnoreEnd
 
