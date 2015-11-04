@@ -78,7 +78,7 @@ class MySQLDumpAdapter extends DumpAdapter implements DumpAdapterInterface
         $content .= "user=\"" . $username . "\"\n";
         $content .= "password=\"" . $password . "\"";
 
-        $file = fopen ($credentialsFile, 'w+');
+        $file = fopen($credentialsFile, 'w+');
 
         fwrite(
             $file,
