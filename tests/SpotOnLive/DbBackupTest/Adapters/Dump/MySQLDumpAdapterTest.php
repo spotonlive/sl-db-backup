@@ -17,9 +17,21 @@ namespace SpotOnLive\DbBackup\Adapters\Dump {
     {
         return null;
     }
+
+    function fopen($url, $permissons)
+    {
+        return true;
+    }
+
+    function fwrite($source, $content)
+    {
+        return true;
+    }
 }
 
 namespace SpotOnLive\DbBackupTest\Adapters\Dump {
+
+    require_once('StreamWrapper.php');
 
     use PHPUnit_Framework_TestCase;
     // @codingStandardsIgnoreEnd
@@ -49,28 +61,33 @@ namespace SpotOnLive\DbBackupTest\Adapters\Dump {
         {
             $database = 'testDatabase';
 
+            $port = 'testPort';
             $host = 'testHost';
             $username = 'testUsername';
             $password = 'testPassword';
 
             $this->options->expects($this->at(0))
                 ->method('get')
+                ->with('port')
+                ->willReturn($port);
+
+            $this->options->expects($this->at(1))
+                ->method('get')
                 ->with('host')
                 ->willReturn($host);
 
-            $this->options->expects($this->at(1))
+            $this->options->expects($this->at(2))
                 ->method('get')
                 ->with('username')
                 ->willReturn($username);
 
-            $this->options->expects($this->at(2))
+            $this->options->expects($this->at(3))
                 ->method('get')
                 ->with('password')
                 ->willReturn($password);
 
             $this->setExpectedException(
-                'Exception',
-                'Connection to mysql failed with message: SQLSTATE[HY000] [2002] php_network_getaddresses: getaddrinfo failed: Name or service not known'
+                'SpotOnLive\DbBackup\Exceptions\RunTimeException'
             );
 
             $this->adapter->dump($database);
