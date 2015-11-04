@@ -5,7 +5,7 @@ namespace SpotOnLive\DbBackup\Adapters\Dump;
 use SpotOnLive\DbBackup\Options\DumpOptions;
 use Ifsnop\Mysqldump;
 
-class MySQLDumpAdapter implements DumpAdapterInterface
+class MySQLDumpAdapter extends DumpAdapter implements DumpAdapterInterface
 {
     /** @var DumpOptions */
     protected $options;
@@ -25,20 +25,34 @@ class MySQLDumpAdapter implements DumpAdapterInterface
     public function dump($database)
     {
         $options = $this->options;
+        $port = $options->get('port');
         $host = $options->get('host');
         $username = $options->get('username');
         $password = $options->get('password');
 
-        // Dump database to file
-        $dumper = new Mysqldump\Mysqldump(
-            'mysql:host=' . $host . ';dbname=' . $database,
-            $username,
-            $password
+        $temporaryFile = tempnam("/tmp", uniqid());
+        $credentialsFile = $this->generateTemporaryCredentialsFile($username, $password);
+
+        $command = sprintf(
+            'mysqldump --defaults-extra-file=%s -P %s -h %s %s > %s',
+            escapeshellarg($credentialsFile),
+            escapeshellarg($port),
+            escapeshellarg($host),
+            escapeshellarg($database),
+            escapeshellarg($temporaryFile)
         );
 
-        $temporaryFile = tempnam("/tmp", uniqid());
+        try {
+            $this->run(
+                $command,
+                env('BACKUP_TIMEOUT', 120)
+            );
 
-        $dumper->start($temporaryFile);
+            $this->removeTemporaryCredentialsFile($credentialsFile);
+        } catch (\Exception $e) {
+            $this->removeTemporaryCredentialsFile($credentialsFile);
+            throw $e;
+        }
 
         // Save sql to file
         $content = file_get_contents($temporaryFile);
@@ -47,6 +61,42 @@ class MySQLDumpAdapter implements DumpAdapterInterface
         unlink($temporaryFile);
 
         return $content;
+    }
+
+    /**
+     * Write temporary credentials file
+     *
+     * @param string $username
+     * @param string $password
+     * @return string
+     */
+    public function generateTemporaryCredentialsFile($username, $password)
+    {
+        $credentialsFile = tempnam("/tmp", uniqid()) . '.cnf';
+
+        $content = "[client]\n";
+        $content .= "user=\"" . $username . "\"\n";
+        $content .= "password=\"" . $password . "\"";
+
+        $file = fopen ($credentialsFile, 'w+');
+
+        fwrite(
+            $file,
+            $content
+        );
+
+        return $credentialsFile;
+    }
+
+    /**
+     * Remove temporary credentials file
+     *
+     * @param string $file
+     * @return bool
+     */
+    public function removeTemporaryCredentialsFile($file)
+    {
+        return unlink($file);
     }
 
     /**

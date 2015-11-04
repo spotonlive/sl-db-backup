@@ -81,7 +81,7 @@ class Options implements OptionsInterface
             return null;
         }
 
-        /** @var string|array|mixed $options */
+        /** @var string|array $options */
         $options = $this->options[$key];
 
         return $options;

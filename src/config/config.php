@@ -6,7 +6,8 @@ return [
         'adapter' => 'SpotOnLive\DbBackup\Adapters\Dump\MySQLDumpAdapter',
 
         'config' => [
-            'host' => env('DB_HOST', 'localhost'),
+            'port' => env('DB_HOST', '3306'),
+            'host' => env('DB_HOST', '127.0.0.1'),
             'username' => env('DB_USERNAME'),
             'password' => env('DB_PASSWORD'),
         ],
